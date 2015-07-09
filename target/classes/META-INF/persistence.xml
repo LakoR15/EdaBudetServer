@@ -7,6 +7,7 @@
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
         <class>ru.edabudet.model.User</class>
+        <class>ru.edabudet.model.Room</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql:edabudet_db"/>

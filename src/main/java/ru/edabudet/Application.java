@@ -1,5 +1,6 @@
 package ru.edabudet;
 
+import ru.edabudet.controller.api.Rooms;
 import ru.edabudet.controller.api.Users;
 
 import static spark.SparkBase.setPort;
@@ -11,5 +12,6 @@ public class Application {
 
         setPort(1122);
         new Users();
+        new Rooms();
     }
 }
