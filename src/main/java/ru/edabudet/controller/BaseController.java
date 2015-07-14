@@ -15,12 +15,4 @@ public abstract class BaseController {
 
     abstract public void routes();
 
-    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("edabudet_db");
-
-    public static EntityManager getEm() {
-        if(factory == null) {
-            throw new IllegalStateException("EntityManagerFactory not yet initialized");
-        }
-        return factory.createEntityManager();
-    }
 }

@@ -3,6 +3,7 @@ package ru.edabudet.controller.api;
 
 import ru.edabudet.controller.BaseController;
 import ru.edabudet.model.User;
+import ru.edabudet.utils.EMF;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
@@ -17,7 +18,7 @@ public class Users extends BaseController {
             User user1 = new User();
             user1.setName(request.params("username"));
 
-            em = getEm();
+            em = EMF.getEm();
             em.getTransaction().begin();
             em.persist(user1);
             em.getTransaction().commit();
@@ -30,7 +31,7 @@ public class Users extends BaseController {
 
             Long id = Long.valueOf(request.params("id"));
 
-            em = getEm();
+            em = EMF.getEm();
             em.getTransaction().begin();
             User user = em.find(User.class, id);
             em.getTransaction().commit();

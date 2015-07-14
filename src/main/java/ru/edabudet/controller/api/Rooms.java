@@ -2,6 +2,7 @@ package ru.edabudet.controller.api;
 
 import ru.edabudet.controller.BaseController;
 import ru.edabudet.model.Room;
+import ru.edabudet.utils.EMF;
 
 import static spark.Spark.post;
 import static spark.Spark.get;
@@ -17,7 +18,7 @@ public class Rooms extends BaseController {
             Room room = new Room();
             room.setPassword(request.params("password"));
 
-            em = getEm();
+            em = EMF.getEm();
             em.getTransaction().begin();
             em.persist(room);
             em.getTransaction().commit();
@@ -32,7 +33,7 @@ public class Rooms extends BaseController {
             Long id = Long.valueOf(request.splat()[0]);
             String password = String.valueOf(request.splat()[1]);
 
-            em = getEm();
+            em = EMF.getEm();
             em.getTransaction().begin();
             Room room = em.find(Room.class, id);
             em.getTransaction().commit();
