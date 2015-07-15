@@ -8,6 +8,8 @@ import javax.persistence.Persistence;
 abstract public class EMF {
     private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("edabudet_db");
 
+    protected EntityManager em;
+
     public static EntityManager getEm() {
         if(factory == null) {
             throw new IllegalStateException("EntityManagerFactory not yet initialized");

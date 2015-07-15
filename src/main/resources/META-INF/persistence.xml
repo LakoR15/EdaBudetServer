@@ -8,6 +8,7 @@
 
         <class>ru.edabudet.model.User</class>
         <class>ru.edabudet.model.Room</class>
+        <class>ru.edabudet.model.ProductList</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql:edabudet_db"/>

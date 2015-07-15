@@ -1,8 +1,10 @@
 package ru.edabudet.controller.api;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import ru.edabudet.controller.BaseController;
-import ru.edabudet.model.Room;
-import ru.edabudet.utils.EMF;
+import ru.edabudet.controller.logic.ProductListLogic;
+import ru.edabudet.controller.logic.RoomLogic;
 
 import static spark.Spark.post;
 import static spark.Spark.get;
@@ -13,37 +15,27 @@ public class Rooms extends BaseController {
     @Override
     public void routes() {
 
+        RoomLogic roomLogic = new RoomLogic();
+        ProductListLogic productListLogic = new ProductListLogic();
+
         post("/rooms/:password", (request, response) -> {
 
-            Room room = new Room();
-            room.setPassword(request.params("password"));
-
-            em = EMF.getEm();
-            em.getTransaction().begin();
-            em.persist(room);
-            em.getTransaction().commit();
-            em.close();
-
-            return "Room created success!";
+            return roomLogic.createRoom(request.params("password"));
 
         });
 
         get("/rooms/*/*", (request, response) -> {
 
-            Long id = Long.valueOf(request.splat()[0]);
-            String password = String.valueOf(request.splat()[1]);
+            if (roomLogic.connectRoom(request.splat()[0], request.splat()[1])){
+                //productListLogic.getProductList(request.splat()[0]);
+                Gson gson = new GsonBuilder()
+                        .setPrettyPrinting()
+                        .create();
+                String json = gson.toJson(productListLogic.getProductList(request.splat()[0]));
+                //Здесь должна быть сериализация:)
+                return json;
 
-            em = EMF.getEm();
-            em.getTransaction().begin();
-            Room room = em.find(Room.class, id);
-            em.getTransaction().commit();
-            em.close();
-
-            if(password.equals(room.getPassword())){
-                return "Login is succesful";
-            }else {
-                return "Not logged in";
-            }
+            }else return "Not logged in";
 
         });
     }

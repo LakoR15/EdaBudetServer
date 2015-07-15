@@ -14,7 +14,7 @@ public class ProductList {
     private String productName;
 
     @Column(name = "room")
-    private Room room;
+    private Long room;
 
     @Column(name = "bought")
     private boolean bought;
@@ -35,11 +35,11 @@ public class ProductList {
         this.productName = productName;
     }
 
-    public Room getRoom() {
+    public Long getRoom() {
         return room;
     }
 
-    public void setRoom(Room room) {
+    public void setRoom(Long room) {
         this.room = room;
     }
 
