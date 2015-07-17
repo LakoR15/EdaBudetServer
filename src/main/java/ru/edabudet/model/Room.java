@@ -1,5 +1,7 @@
 package ru.edabudet.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import javax.persistence.*;
 
 @Entity(name = "room_table")
@@ -8,9 +10,11 @@ public class Room {
 
     @Id
     @GeneratedValue(generator = "room_seq")
+    @SerializedName("id")
     private Long id;
 
     @Column (name = "password")
+    @SerializedName("password")
     private String password;
 
     public Long getId() {

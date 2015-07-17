@@ -3,7 +3,6 @@ package ru.edabudet.controller.logic;
 import ru.edabudet.model.Room;
 import ru.edabudet.utils.EMF;
 
-import java.util.ArrayList;
 
 public class RoomLogic extends EMF {
 
@@ -21,9 +20,8 @@ public class RoomLogic extends EMF {
         return room.getId();
     }
 
-    public Boolean connectRoom(String id_str, String password){
+    public Boolean connectRoom(Long id, String password){
 
-        Long id = Long.valueOf(id_str);
         Boolean out;
 
         em = EMF.getEm();

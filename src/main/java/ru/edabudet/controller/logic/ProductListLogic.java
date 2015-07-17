@@ -1,20 +1,18 @@
 package ru.edabudet.controller.logic;
 
 import ru.edabudet.model.ProductList;
-import ru.edabudet.model.Room;
 import ru.edabudet.utils.EMF;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
+
 
 public class ProductListLogic extends EMF {
 
-    public void createProductList(String productName, String room){
+    public void createProductList(String productName, Long room){
 
         ProductList productList = new ProductList();
         productList.setProductName(productName);
-        productList.setRoom(Long.valueOf(room));
+        productList.setRoom(room);
         productList.setBought(false);
 
         em = EMF.getEm();
@@ -25,14 +23,13 @@ public class ProductListLogic extends EMF {
 
     }
 
-    public List<ProductList> getProductList(String id_str){
+    public List<ProductList> getProductList(Long id){
 
         List<ProductList> productLists;
-        Long id = Long.valueOf(id_str);
 
         em = EMF.getEm();
         em.getTransaction().begin();
-        productLists = em.createQuery("SELECT pl FROM ru.edabudet.model.ProductList pl where pl.room=:idroom", ProductList.class)
+        productLists = em.createQuery("SELECT pl FROM ru.edabudet.model.ProductList pl where pl.room=:idroom and pl.bought=false", ProductList.class)
                 .setParameter("idroom",id)
                 .getResultList();
         em.getTransaction().commit();
@@ -42,9 +39,8 @@ public class ProductListLogic extends EMF {
 
     }
 
-    public void removeProductList(String id_str){
+    public void removeProductList(Long id){
         ProductList productList;
-        Long id = Long.valueOf(id_str);
 
         em = EMF.getEm();
         em.getTransaction().begin();

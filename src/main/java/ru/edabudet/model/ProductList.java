@@ -1,5 +1,7 @@
 package ru.edabudet.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import javax.persistence.*;
 
 @Entity(name = "productList_table")
@@ -8,15 +10,21 @@ public class ProductList {
 
     @Id
     @GeneratedValue(generator = "productList_seq")
+    @SerializedName("id")
     private Long id;
 
+
     @Column(name = "productName")
+    @SerializedName("productName")
     private String productName;
 
     @Column(name = "room")
+    @SerializedName("room")
     private Long room;
 
+
     @Column(name = "bought")
+    @SerializedName("bought")
     private boolean bought;
 
     public Long getId() {

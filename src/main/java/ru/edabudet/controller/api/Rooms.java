@@ -5,9 +5,9 @@ import com.google.gson.GsonBuilder;
 import ru.edabudet.controller.BaseController;
 import ru.edabudet.controller.logic.ProductListLogic;
 import ru.edabudet.controller.logic.RoomLogic;
+import ru.edabudet.model.Room;
 
 import static spark.Spark.post;
-import static spark.Spark.get;
 
 public class Rooms extends BaseController {
 
@@ -18,24 +18,33 @@ public class Rooms extends BaseController {
         RoomLogic roomLogic = new RoomLogic();
         ProductListLogic productListLogic = new ProductListLogic();
 
-        post("/rooms/:password", (request, response) -> {
+        post("/rooms/create/:password", (request, response) -> {
 
             return roomLogic.createRoom(request.params("password"));
 
         });
 
-        get("/rooms/*/*", (request, response) -> {
+        post("/rooms/connect", (request, response) -> {
 
-            if (roomLogic.connectRoom(request.splat()[0], request.splat()[1])){
-                //productListLogic.getProductList(request.splat()[0]);
+            Room room = new Gson().fromJson(request.body(), Room.class);
+
+            if (roomLogic.connectRoom(room.getId(), room.getPassword())){
                 Gson gson = new GsonBuilder()
                         .setPrettyPrinting()
                         .create();
-                String json = gson.toJson(productListLogic.getProductList(request.splat()[0]));
-                //Здесь должна быть сериализация:)
+                String json = gson.toJson(productListLogic.getProductList(room.getId()));
                 return json;
 
             }else return "Not logged in";
+
+            /*Room room = new Room();
+            room.setId((long) 1);
+            room.setPassword("12345");
+            Gson gson = new GsonBuilder()
+                    .setPrettyPrinting()
+                    .create();
+            String json = gson.toJson(room);
+            return json;*/
 
         });
     }
