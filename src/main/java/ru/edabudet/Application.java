@@ -11,7 +11,7 @@ public class Application {
 
     public static void main(String[] args) {
 
-        setPort(1122);
+        setPort(5555);
         new Users();
         new Rooms();
         new ProductLists();

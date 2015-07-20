@@ -3,6 +3,7 @@ package ru.edabudet.controller.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import ru.edabudet.controller.BaseController;
 import ru.edabudet.controller.logic.ProductListLogic;
@@ -27,11 +28,14 @@ public class ProductLists extends BaseController{
             Type arrayList = new TypeToken<ArrayList<ProductList>>(){}.getType();
             ArrayList<ProductList> productLists = new Gson().fromJson(request.body(), arrayList);
 
-            Iterator<ProductList> iterator = productLists.iterator();
-            while (iterator.hasNext()){
-                ProductList productList = iterator.next();
-                productListLogic.createProductList(productList.getProductName(), productList.getRoom());
+            for (ProductList product : productLists) {
+                productListLogic.createProductList(product.getProductName(), product.getRoom());
             }
+//            Iterator<ProductList> iterator = productLists.iterator();
+//            while (iterator.hasNext()){
+//                ProductList productList = iterator.next();
+//                productListLogic.createProductList(productList.getProductName(), productList.getRoom());
+//            }
 
             /*productListLogic.createProductList(productList.getProductName(), productList.getRoom());*/
             Gson gson = new GsonBuilder()
