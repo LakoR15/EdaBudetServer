@@ -27,6 +27,9 @@
     <persistence-unit name="edabudet_test_db" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
+        <class>ru.edabudet.model.User</class>
+        <class>ru.edabudet.model.Room</class>
+        <class>ru.edabudet.model.ProductList</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql:edabudet_test_db"/>
