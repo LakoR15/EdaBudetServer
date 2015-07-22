@@ -20,7 +20,8 @@ public class Rooms extends BaseController {
 
         post("/rooms/create/:password", (request, response) -> {
 
-            return roomLogic.createRoom(request.params("password"));
+            Long id = roomLogic.createRoom(request.params("password"));
+            return id;
 
         });
 
@@ -36,15 +37,6 @@ public class Rooms extends BaseController {
                 return json;
 
             }else return "Not logged in";
-
-            /*Room room = new Room();
-            room.setId((long) 1);
-            room.setPassword("12345");
-            Gson gson = new GsonBuilder()
-                    .setPrettyPrinting()
-                    .create();
-            String json = gson.toJson(room);
-            return json;*/
 
         });
     }

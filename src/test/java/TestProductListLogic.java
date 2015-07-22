@@ -1,3 +1,4 @@
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import ru.edabudet.controller.logic.ProductListLogic;
@@ -6,14 +7,17 @@ import ru.edabudet.utils.EMF;
 
 public class TestProductListLogic extends EMF{
 
-
+    @Before
+    public void dropBD(){
+        
+    }
 
     @Test
     public void TestRemoveProductLists(){
         ProductList productList;
         ProductListLogic productListLogic = new  ProductListLogic();
 
-        productListLogic.createProductList("apple", (long) 1);
+        productListLogic.createProductList("potato", (long) 1);
         productListLogic.removeProductList((long) 1);
 
         em = EMF.getEm();

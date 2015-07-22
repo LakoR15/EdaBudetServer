@@ -16,10 +16,16 @@ public class ProductListLogic extends EMF {
         productList.setBought(false);
 
         em = EMF.getEm();
-        em.getTransaction().begin();
-        em.persist(productList);
-        em.getTransaction().commit();
-        em.close();
+        try {
+            em.getTransaction().begin();
+            em.persist(productList);
+            em.getTransaction().commit();
+        }catch (Exception e){
+            em.getTransaction().rollback();
+            throw new RuntimeException("Не удалось добавить объект в БД: " + e.getMessage());
+        }finally {
+            em.close();
+        }
 
     }
 
@@ -28,12 +34,15 @@ public class ProductListLogic extends EMF {
         List<ProductList> productLists;
 
         em = EMF.getEm();
-        em.getTransaction().begin();
-        productLists = em.createQuery("SELECT pl FROM ru.edabudet.model.ProductList pl where pl.room=:idroom and pl.bought=false", ProductList.class)
-                .setParameter("idroom",id)
-                .getResultList();
-        em.getTransaction().commit();
-        em.close();
+        try {
+            em.getTransaction().begin();
+            productLists = em.createQuery("SELECT pl FROM ru.edabudet.model.ProductList pl where pl.room=:idroom and pl.bought=false", ProductList.class)
+                    .setParameter("idroom",id)
+                    .getResultList();
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
 
         return productLists;
 
@@ -43,11 +52,18 @@ public class ProductListLogic extends EMF {
         ProductList productList;
 
         em = EMF.getEm();
-        em.getTransaction().begin();
-        productList = em.find(ProductList.class, id);
-        productList.setBought(true);
-        em.flush();
-        em.getTransaction().commit();
-        em.close();
+        try{
+            em.getTransaction().begin();
+            productList = em.find(ProductList.class, id);
+            productList.setBought(true);
+            em.flush();
+            em.getTransaction().commit();
+        } catch (Exception e){
+            em.getTransaction().rollback();
+            throw new RuntimeException("Не удалось обновить объект: " + e.getMessage());
+        }finally {
+            em.close();
+        }
+
     }
 }

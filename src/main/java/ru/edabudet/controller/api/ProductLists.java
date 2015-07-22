@@ -31,13 +31,7 @@ public class ProductLists extends BaseController{
             for (ProductList product : productLists) {
                 productListLogic.createProductList(product.getProductName(), product.getRoom());
             }
-//            Iterator<ProductList> iterator = productLists.iterator();
-//            while (iterator.hasNext()){
-//                ProductList productList = iterator.next();
-//                productListLogic.createProductList(productList.getProductName(), productList.getRoom());
-//            }
 
-            /*productListLogic.createProductList(productList.getProductName(), productList.getRoom());*/
             Gson gson = new GsonBuilder()
                     .setPrettyPrinting()
                     .create();
@@ -51,14 +45,9 @@ public class ProductLists extends BaseController{
             Type arrayList = new TypeToken<ArrayList<ProductList>>(){}.getType();
             ArrayList<ProductList> productLists = new Gson().fromJson(request.body(), arrayList);
 
-            Iterator<ProductList> iterator = productLists.iterator();
-            while (iterator.hasNext()){
-                ProductList productList = iterator.next();
+            for(ProductList productList: productLists){
                 productListLogic.removeProductList(productList.getId());
             }
-            /*ProductList productList = new Gson().fromJson(request.body(), ProductList.class);
-
-            productListLogic.removeProductList(productList.getId());*/
 
             Gson gson = new GsonBuilder()
                     .setPrettyPrinting()
