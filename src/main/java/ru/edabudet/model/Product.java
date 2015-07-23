@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity(name = "productList_table")
 @SequenceGenerator(name = "productList_seq", sequenceName = "productList_seq")
-public class ProductList {
+public class Product {
 
     @Id
     @GeneratedValue(generator = "productList_seq")

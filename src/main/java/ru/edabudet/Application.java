@@ -12,7 +12,6 @@ public class Application {
     public static void main(String[] args) {
 
         setPort(5555);
-        new Users();
         new Rooms();
         new ProductLists();
     }

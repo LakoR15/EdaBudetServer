@@ -1,6 +1,6 @@
 package ru.edabudet.controller.logic;
 
-import ru.edabudet.model.ProductList;
+import ru.edabudet.model.Product;
 import ru.edabudet.utils.EMF;
 
 import java.util.List;
@@ -10,15 +10,15 @@ public class ProductListLogic extends EMF {
 
     public void createProductList(String productName, Long room){
 
-        ProductList productList = new ProductList();
-        productList.setProductName(productName);
-        productList.setRoom(room);
-        productList.setBought(false);
+        Product product = new Product();
+        product.setProductName(productName);
+        product.setRoom(room);
+        product.setBought(false);
 
         em = EMF.getEm();
         try {
             em.getTransaction().begin();
-            em.persist(productList);
+            em.persist(product);
             em.getTransaction().commit();
         }catch (Exception e){
             em.getTransaction().rollback();
@@ -29,14 +29,14 @@ public class ProductListLogic extends EMF {
 
     }
 
-    public List<ProductList> getProductList(Long id){
+    public List<Product> getProductList(Long id){
 
-        List<ProductList> productLists;
+        List<Product> products;
 
         em = EMF.getEm();
         try {
             em.getTransaction().begin();
-            productLists = em.createQuery("SELECT pl FROM ru.edabudet.model.ProductList pl where pl.room=:idroom and pl.bought=false", ProductList.class)
+            products = em.createQuery("SELECT pl FROM ru.edabudet.model.Product pl where pl.room=:idroom and pl.bought=false", Product.class)
                     .setParameter("idroom",id)
                     .getResultList();
             em.getTransaction().commit();
@@ -44,18 +44,18 @@ public class ProductListLogic extends EMF {
             em.close();
         }
 
-        return productLists;
+        return products;
 
     }
 
     public void removeProductList(Long id){
-        ProductList productList;
+        Product product;
 
         em = EMF.getEm();
         try{
             em.getTransaction().begin();
-            productList = em.find(ProductList.class, id);
-            productList.setBought(true);
+            product = em.find(Product.class, id);
+            product.setBought(true);
             em.flush();
             em.getTransaction().commit();
         } catch (Exception e){

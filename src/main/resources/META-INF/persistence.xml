@@ -8,7 +8,7 @@
 
         <class>ru.edabudet.model.User</class>
         <class>ru.edabudet.model.Room</class>
-        <class>ru.edabudet.model.ProductList</class>
+        <class>ru.edabudet.model.Product</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql:edabudet_db"/>
@@ -29,7 +29,7 @@
 
         <class>ru.edabudet.model.User</class>
         <class>ru.edabudet.model.Room</class>
-        <class>ru.edabudet.model.ProductList</class>
+        <class>ru.edabudet.model.Product</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql:edabudet_test_db"/>

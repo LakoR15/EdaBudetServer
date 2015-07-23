@@ -18,11 +18,7 @@ public class Rooms extends BaseController {
         RoomLogic roomLogic = new RoomLogic();
         ProductListLogic productListLogic = new ProductListLogic();
 
-        post("/rooms/create/:password", (request, response) -> {
-
-                Long id = roomLogic.createRoom(request.params("password"));
-                return id;
-        });
+        post("/rooms/create/:password", (request, response) -> roomLogic.createRoom(request.params("password")));
 
         post("/rooms/connect", (request, response) -> {
 
@@ -32,8 +28,7 @@ public class Rooms extends BaseController {
                     Gson gson = new GsonBuilder()
                             .setPrettyPrinting()
                             .create();
-                    String json = gson.toJson(productListLogic.getProductList(room.getId()));
-                    return json;
+                    return gson.toJson(productListLogic.getProductList(room.getId()));
 
                 }else return "Not logged in";
 

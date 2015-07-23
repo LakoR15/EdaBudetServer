@@ -37,11 +37,7 @@ public class RoomLogic extends EMF {
             em.getTransaction().begin();
             Room room = em.find(Room.class, id);
             em.getTransaction().commit();
-            if (password.equals(room.getPassword())) {
-                out = true;
-            } else {
-                out = false;
-            }
+            out = password.equals(room.getPassword());
         }catch (NoResultException e){
             return false;
         }

@@ -1,5 +1,5 @@
 import org.junit.Test;
-import ru.edabudet.model.ProductList;
+import ru.edabudet.model.Product;
 import ru.edabudet.model.Room;
 import ru.edabudet.utils.EMF;
 import org.junit.Assert;
@@ -38,29 +38,29 @@ public class TestModels {
 
     @Test
     public void testModelsProductList(){
-        ProductList productList = new ProductList();
-        productList.setProductName("apple");
-        productList.setRoom((long) 1);
-        productList.setBought(false);
+        Product product = new Product();
+        product.setProductName("apple");
+        product.setRoom((long) 1);
+        product.setBought(false);
 
         EntityManager em = EMF.getEm();
         em.getTransaction().begin();
-        em.persist(productList);
+        em.persist(product);
         em.getTransaction().commit();
         em.close();
 
-        ProductList productList1;
+        Product product1;
 
         EntityManager em1 = EMF.getEm();
         em1.getTransaction().begin();
-        productList1 = em1.find(ProductList.class,(long) 1);
+        product1 = em1.find(Product.class,(long) 1);
         em1.getTransaction().commit();
         em1.close();
 
-        Assert.assertEquals(productList.getId(), productList1.getId());
-        Assert.assertEquals(productList.getProductName(), productList1.getProductName());
-        Assert.assertEquals(productList.getRoom(), productList1.getRoom());
-        Assert.assertEquals(productList.isBought(), productList1.isBought());
+        Assert.assertEquals(product.getId(), product1.getId());
+        Assert.assertEquals(product.getProductName(), product1.getProductName());
+        Assert.assertEquals(product.getRoom(), product1.getRoom());
+        Assert.assertEquals(product.isBought(), product1.isBought());
     }
 
 

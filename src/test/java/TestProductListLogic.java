@@ -2,7 +2,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import ru.edabudet.controller.logic.ProductListLogic;
-import ru.edabudet.model.ProductList;
+import ru.edabudet.model.Product;
 import ru.edabudet.utils.EMF;
 
 public class TestProductListLogic extends EMF{
@@ -14,19 +14,19 @@ public class TestProductListLogic extends EMF{
 
     @Test
     public void TestRemoveProductLists(){
-        ProductList productList;
+        Product product;
         ProductListLogic productListLogic = new  ProductListLogic();
 
-        productListLogic.createProductList("potato", (long) 1);
+        productListLogic.createProductList("apple", (long) 1);
         productListLogic.removeProductList((long) 1);
 
         em = EMF.getEm();
         em.getTransaction().begin();
-        productList = em.find(ProductList.class, (long) 1);
+        product = em.find(Product.class, (long) 1);
         em.getTransaction().commit();
         em.close();
 
-        assertEquals(productList.isBought(), true);
+        assertEquals(product.isBought(), true);
     }
 
    @Test
@@ -34,15 +34,15 @@ public class TestProductListLogic extends EMF{
         ProductListLogic productListLogic = new ProductListLogic();
         productListLogic.createProductList("apple", (long) 1);
 
-        ProductList productList;
+        Product product;
 
         em = EMF.getEm();
         em.getTransaction().begin();
-        productList = em.find(ProductList.class, (long) 1);
+        product = em.find(Product.class, (long) 1);
         em.getTransaction().commit();
         em.close();
 
-        assertEquals(productList.getProductName(), "apple");
+        assertEquals(product.getProductName(), "apple");
     }
 
 
