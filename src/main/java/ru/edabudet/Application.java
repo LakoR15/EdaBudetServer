@@ -13,6 +13,7 @@ public class Application {
 
         setPort(5555);
         new Rooms();
+        
         new ProductLists();
     }
 }
