@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/classes/ru/edabudet/* Application
+web: sh target/bin/webapp
