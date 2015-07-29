@@ -1,1 +1,1 @@
-web: mvn clean install exec:java -Dexec.mainClass=".edabudet.Application" -e
+web: java $JAVA_OPTS -cp target/classes:target/dependency/* Application
